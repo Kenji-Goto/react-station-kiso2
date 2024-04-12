@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Header } from "../components/Header";
-import axios from "axios";
-import { useCookies } from "react-cookie";
-import { url } from "../const";
 import { useNavigate, useParams } from "react-router-dom";
-import "./editTask.css";
+import { useCookies } from "react-cookie";
+import axios from "axios";
+import Header from "../components/Header";
+import { url } from "../const";
+import "./editTask.scss";
 
-export const EditTask = () => {
+function EditTask() {
   const history = useNavigate();
   const { listId, taskId } = useParams();
   const [cookies] = useCookies();
@@ -18,10 +18,9 @@ export const EditTask = () => {
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleIsDoneChange = (e) => setIsDone(e.target.value === "done");
   const onUpdateTask = () => {
-    console.log(isDone);
     const data = {
-      title: title,
-      detail: detail,
+      title,
+      detail,
       done: isDone,
     };
 
@@ -31,8 +30,7 @@ export const EditTask = () => {
           authorization: `Bearer ${cookies.token}`,
         },
       })
-      .then((res) => {
-        console.log(res.data);
+      .then(() => {
         history.push("/");
       })
       .catch((err) => {
@@ -80,18 +78,20 @@ export const EditTask = () => {
         <h2>タスク編集</h2>
         <p className="error-message">{errorMessage}</p>
         <form className="edit-task-form">
-          <label>タイトル</label>
+          <label htmlFor="title">タイトル</label>
           <br />
           <input
+            id="title"
             type="text"
             onChange={handleTitleChange}
             className="edit-task-title"
             value={title}
           />
           <br />
-          <label>詳細</label>
+          <label htmlFor="detail">詳細</label>
           <br />
           <textarea
+            id="detail"
             type="text"
             onChange={handleDetailChange}
             className="edit-task-detail"
@@ -136,4 +136,6 @@ export const EditTask = () => {
       </main>
     </div>
   );
-};
+}
+
+export default EditTask;

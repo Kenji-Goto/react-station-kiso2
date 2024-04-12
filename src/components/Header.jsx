@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "../authSlice";
 import "./header.css";
 
-export const Header = () => {
+function Header() {
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
   const history = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [removeCookie] = useCookies();
   const handleSignOut = () => {
     dispatch(signOut());
     removeCookie("token");
@@ -20,12 +20,19 @@ export const Header = () => {
     <header className="header">
       <h1>Todoアプリ</h1>
       {auth ? (
-        <button onClick={handleSignOut} className="sign-out-button">
+        <button
+          type="button"
+          onClick={handleSignOut}
+          className="sign-out-button"
+        >
           サインアウト
         </button>
       ) : (
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         <></>
       )}
     </header>
   );
-};
+}
+
+export default Header;
