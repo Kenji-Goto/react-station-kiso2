@@ -23,6 +23,7 @@ function Home() {
       })
       .then((res) => {
         setLists(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         setErrorMessage(`リストの取得に失敗しました。${err}`);
@@ -86,14 +87,16 @@ function Home() {
             {lists.map((list) => {
               const isActive = list.id === selectListId;
               return (
-                <button type="button" onClick={() => handleSelectList(list.id)}>
-                  <li
-                    key={list.id}
-                    className={`list-tab-item ${isActive ? "active" : ""}`}
-                  >
-                    {list.title}
-                  </li>
-                </button>
+                // <button type="button" >
+                // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
+                <li
+                  key={list.id}
+                  onClick={() => handleSelectList(list.id)}
+                  className={`list-tab-item ${isActive ? "active" : ""}`}
+                >
+                  {list.title}
+                </li>
+                // </button>
               );
             })}
           </ul>
@@ -128,11 +131,12 @@ function Tasks(props) {
   const { tasks, selectListId, isDoneDisplay } = props;
   if (tasks === null) return <> </>;
 
+  console.log(tasks);
+
   if (isDoneDisplay === "done") {
     return (
       <ul>
         {tasks
-
           .filter((task) => task.done === true)
           .map((task) => (
             <li key={task.id} className="task-item">

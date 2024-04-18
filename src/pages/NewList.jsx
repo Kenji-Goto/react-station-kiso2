@@ -8,7 +8,7 @@ import "./newList.scss";
 
 function NewList() {
   const [cookies] = useCookies();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const handleTitleChange = (e) => setTitle(e.target.value);
@@ -24,7 +24,7 @@ function NewList() {
         },
       })
       .then(() => {
-        history.push("/");
+        navigate("/");
       })
       .catch((err) => {
         setErrorMessage(`リストの作成に失敗しました。${err}`);

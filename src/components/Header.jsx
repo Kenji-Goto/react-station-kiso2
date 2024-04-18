@@ -8,12 +8,13 @@ import "./header.css";
 function Header() {
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
-  const history = useNavigate();
-  const [removeCookie] = useCookies();
+  const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
+  const [cookies, setCookie, removeCookie] = useCookies();
   const handleSignOut = () => {
     dispatch(signOut());
     removeCookie("token");
-    history.push("/signin");
+    navigate("/signin");
   };
 
   return (
@@ -29,7 +30,7 @@ function Header() {
         </button>
       ) : (
         // eslint-disable-next-line react/jsx-no-useless-fragment
-        <></>
+        <>サインイン</>
       )}
     </header>
   );
